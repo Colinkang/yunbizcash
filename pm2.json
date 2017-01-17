@@ -1,0 +1,15 @@
+{
+  "apps" : [{
+    "name"        : "zcash_pull_data",
+    "script"      : "./dist/request_zcash_flypool.js",
+    "exec_mode"        : "fork",
+    "kill_timeout": 30000
+  }
+  ,{
+    "name"        : "zcash_realtime",
+    "script"      : "./dist/request_realtime.js",
+    "exec_mode"   : "fork",
+    "kill_timeout": 30000
+  }
+]
+}
