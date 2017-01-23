@@ -1,8 +1,8 @@
 SET NAMES utf8;
-DROP DATABASE IF EXISTS zcash;
-CREATE DATABASE zcash;
-ALTER DATABASE zcash CHARACTER SET utf8;
-USE zcash;
+DROP DATABASE IF EXISTS yunbizcash;
+CREATE DATABASE yunbizcash;
+ALTER DATABASE yunbizcash CHARACTER SET utf8;
+USE yunbizcash;
 
 CREATE TABLE `payouts` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -13,9 +13,10 @@ CREATE TABLE `payouts` (
   `end` int(11) NOT NULL,
   `txhash` varchar(100) NOT NULL DEFAULT '',
   `paidon` bigint(20) NOT NULL,
+  `calculateflag` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   unique(`payoutsid`)
-) ENGINE=InnoDB AUTO_INCREMENT=216 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `zcashincome` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -30,4 +31,4 @@ CREATE TABLE `zcashincome` (
   `in_hashrate_ratio` double NOT NULL,
   PRIMARY KEY (`id`),
   unique(`date`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;

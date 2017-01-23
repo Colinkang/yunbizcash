@@ -1,6 +1,6 @@
 const request = require('request');
-const urlAPI = 'http://zcash.flypool.org/api/miner_new/t1afdgdmPmjEJreiRhAKMm3uEUdS5tFuXM4';
-const url ='https://zcash.flypool.org/miners/t1afdgdmPmjEJreiRhAKMm3uEUdS5tFuXM4';
+const urlAPI = 'http://zcash.flypool.org/api/miner_new/t1JE5Dmr6DprTN4emsduvcFEqzB8NYMGLoo';
+const url ='https://zcash.flypool.org/miners/t1JE5Dmr6DprTN4emsduvcFEqzB8NYMGLoo';
 const yunbiurl ='https://yunbi.com//api/v2/tickers.json';
 const utils = require('./utils');
 const xlsx = require('excel-export');
@@ -14,10 +14,10 @@ const logger = require('./logger');
 /*
 *每天9点从服务器拉取数据,计算前一天Zcash的收入存入数据库中，并且导出excel表格
 */
- later.date.localTime();//设置为本地时间
- var sched = later.parse.recur().on(9).hour().on(0).minute().on(0).second();
- let t = later.setInterval(pullAndExcel, sched);
-  async function pullAndExcel(){
+ // later.date.localTime();//设置为本地时间
+ // var sched = later.parse.recur().on(9).hour().on(0).minute().on(0).second();
+ // let t = later.setInterval(pullAndExcel, sched);
+  (async function pullAndExcel(){
     try{
       let body = await new Promise(function(resolve,reject){
         request(urlAPI, function (error, response, body) {
@@ -62,8 +62,8 @@ const logger = require('./logger');
        let result2 = await utils.P(utils.pool,'query',query2);
        if(result2.length !=0) the_day_before_yesterday_total_amount = result2[0].amount;
        let date = time2;
-       let payee = 'Zcash－flypool 矿池';
-       let description = '挖币收入－矿厂';
+       let payee = '云币网';
+       let description = '';
        let income = (result[0].day_amount)/100000000;
        let outpay = 0;
        let amount =the_day_before_yesterday_total_amount+income;
@@ -142,19 +142,17 @@ const logger = require('./logger');
 
          //发送excel邮件
         let from = 'clare.kang@bitse.com';
-        let to = 'harvey.shang@bitse.com';
-        //let to = 'clare.kang@bitse.com;clare.kang@vechain.com;';
+        //let to = 'harvey.shang@bitse.com';
+        let to = 'clare.kang@bitse.com;clare.kang@vechain.com;';
         let date_yesterday = new Date(time2).getFullYear()+'-'+(new Date(time2).getMonth()+1)+'-'+new Date(time2).getDate();
-        let subject = date_yesterday+' Zcash-flypool 挖矿情况';
+        let subject = date_yesterday+' 云币网Zcash-flypool 挖矿情况';
         let html = utils.generateHtml(exceldate,date_yesterday,income.toFixed(3),avgHashrate.toFixed(3),activeworker,in_hashrate_ratio.toFixed(3),zec,eth,etc);
         let name = filename + exceldate + '.xlsx';
         let fpath = filePath;
-
-
         await utils.mailerSend(from,to,subject,html,name,fpath);
     }catch(e){
       logger.logger.error(e);
       pullAndExcel();
     }
 
-  }
+  }())

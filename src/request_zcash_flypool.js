@@ -1,5 +1,5 @@
 const request = require('request');
-const url = 'http://zcash.flypool.org/api/miner_new/t1afdgdmPmjEJreiRhAKMm3uEUdS5tFuXM4';
+const url = 'http://zcash.flypool.org/api/miner_new/t1JE5Dmr6DprTN4emsduvcFEqzB8NYMGLoo';
 const utils = require('./utils');
 const later = require('later');
 const logger = require('./logger');
@@ -7,9 +7,9 @@ const logger = require('./logger');
 **每10钟从服务器上拉取payouts数据  主要有payoutsid 每次zcash数量  时间
 */
  // let flag = false;
- let sched = later.parse.recur().every(10).minute();
- let t = later.setInterval(pull, sched);
-  async  function pull(){
+ // let sched = later.parse.recur().every(10).minute();
+ // let t = later.setInterval(pull, sched);
+  (async  function pull(){
     try{
       // console.log('flag',flag);
       // if(flag) return;
@@ -38,4 +38,4 @@ const logger = require('./logger');
       // flag = false;
     }
 
- }
+ }());

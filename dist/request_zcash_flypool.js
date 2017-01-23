@@ -6,7 +6,20 @@ var _bluebird2 = _interopRequireDefault(_bluebird);
 
 var _bluebirdCo = require('bluebird-co');
 
-let pull = (() => {
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const request = require('request');
+const url = 'http://zcash.flypool.org/api/miner_new/t1JE5Dmr6DprTN4emsduvcFEqzB8NYMGLoo';
+const utils = require('./utils');
+const later = require('later');
+const logger = require('./logger');
+/***
+**每10钟从服务器上拉取payouts数据  主要有payoutsid 每次zcash数量  时间
+*/
+// let flag = false;
+// let sched = later.parse.recur().every(10).minute();
+// let t = later.setInterval(pull, sched);
+(() => {
   var _ref = (0, _bluebirdCo.coroutine)(function* () {
     try {
       // console.log('flag',flag);
@@ -36,21 +49,9 @@ let pull = (() => {
     }
   });
 
-  return function pull() {
+  function pull() {
     return _ref.apply(this, arguments);
-  };
-})();
+  }
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-const request = require('request');
-const url = 'http://zcash.flypool.org/api/miner_new/t1afdgdmPmjEJreiRhAKMm3uEUdS5tFuXM4';
-const utils = require('./utils');
-const later = require('later');
-const logger = require('./logger');
-/***
-**每10钟从服务器上拉取payouts数据  主要有payoutsid 每次zcash数量  时间
-*/
-// let flag = false;
-let sched = later.parse.recur().every(10).minute();
-let t = later.setInterval(pull, sched);
+  return pull;
+})()();

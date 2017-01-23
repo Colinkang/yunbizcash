@@ -20,9 +20,9 @@ let config = {
    DBINFO:{
      host:'localhost',
      user:'root',
-     //password:'',
-     password:'vechain2016!',
-     database:'zcash',
+     password:'',
+     //password:'vechain2016!',
+     database:'yunbizcash',
      port:3306
    }
 };
